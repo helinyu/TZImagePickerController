@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -41,10 +41,19 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvH-gL-kY8">
+                                                <rect key="frame" x="305" y="2.5" width="62" height="30"/>
+                                                <state key="normal" title="视频处理"/>
+                                                <connections>
+                                                    <action selector="onVideoAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Co5-ln-AgX"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="zvH-gL-kY8" secondAttribute="trailing" constant="8" id="6Tv-rT-X4i"/>
                                             <constraint firstAttribute="height" constant="35" id="RuS-Zw-ecY"/>
+                                            <constraint firstItem="zvH-gL-kY8" firstAttribute="centerY" secondItem="obE-hs-XLa" secondAttribute="centerY" id="lU7-Lp-0jW"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWK-ob-W4A" userLabel="View2">
@@ -339,6 +348,7 @@
                         <outlet property="showSheetSwitch" destination="uHt-bT-lBZ" id="NxK-wM-ivE"/>
                         <outlet property="showTakePhotoBtnSwitch" destination="jpa-B9-8n6" id="lh8-2O-IWS"/>
                         <outlet property="sortAscendingSwitch" destination="Rbt-bh-r0x" id="WEA-Vq-uSg"/>
+                        <outlet property="videoBtn" destination="zvH-gL-kY8" id="uhD-Dc-Tkf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

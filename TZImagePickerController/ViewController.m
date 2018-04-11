@@ -18,6 +18,7 @@
 #import "TZPhotoPreviewController.h"
 #import "TZGifPhotoPreviewController.h"
 #import "TZLocationManager.h"
+#import "TZVideoExampleViewController.h"
 
 @interface ViewController ()<TZImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate> {
     NSMutableArray *_selectedPhotos;
@@ -46,6 +47,9 @@
 @property (weak, nonatomic) IBOutlet UISwitch *allowCropSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *needCircleCropSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *allowPickingMuitlpleVideoSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *videoBtn;
+
+
 @end
 
 @implementation ViewController
@@ -213,6 +217,7 @@
     
     [_collectionView reloadData];
 }
+
 
 #pragma mark - TZImagePickerController
 
@@ -651,6 +656,11 @@
         self.maxCountTF.text = @"1";
         [self.allowPickingOriginalPhotoSwitch setOn:NO animated:YES];
     }
+}
+
+- (IBAction)onVideoAction:(id)sender {
+    TZVideoExampleViewController *vc = [TZVideoExampleViewController new];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)allowPickingMultipleVideoSwitchClick:(UISwitch *)sender {

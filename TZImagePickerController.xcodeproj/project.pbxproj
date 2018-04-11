@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04F55B1A207E47ED00F3BAD0 /* TZVideoExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F55B19207E47ED00F3BAD0 /* TZVideoExampleViewController.m */; };
+		04F55B1C207E490800F3BAD0 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 04F55B1B207E490800F3BAD0 /* video.mp4 */; };
 		6D32B9BD1CD83640005CE1E0 /* LxGridViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D32B9BC1CD83640005CE1E0 /* LxGridViewFlowLayout.m */; };
 		6D4608311DFFC60D004FB009 /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4608301DFFC60D004FB009 /* TZGifPhotoPreviewController.m */; };
 		6D5358CD1D64600F00928CC6 /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5358CC1D64600F00928CC6 /* NSBundle+TZImagePicker.m */; };
@@ -54,6 +56,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04F55B18207E47ED00F3BAD0 /* TZVideoExampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TZVideoExampleViewController.h; sourceTree = "<group>"; };
+		04F55B19207E47ED00F3BAD0 /* TZVideoExampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TZVideoExampleViewController.m; sourceTree = "<group>"; };
+		04F55B1B207E490800F3BAD0 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		6D12FC191D66B71E00182C44 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		6D12FC1A1D66B71E00182C44 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		6D32B9BB1CD83640005CE1E0 /* LxGridViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LxGridViewFlowLayout.h; sourceTree = "<group>"; };
@@ -136,6 +141,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04F55B16207E472300F3BAD0 /* VideoBtn */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VideoBtn;
+			sourceTree = "<group>";
+		};
+		04F55B17207E47C400F3BAD0 /* VideoExample */ = {
+			isa = PBXGroup;
+			children = (
+				04F55B1B207E490800F3BAD0 /* video.mp4 */,
+				04F55B18207E47ED00F3BAD0 /* TZVideoExampleViewController.h */,
+				04F55B19207E47ED00F3BAD0 /* TZVideoExampleViewController.m */,
+			);
+			path = VideoExample;
+			sourceTree = "<group>";
+		};
 		6DC358641CC8BAE300898D29 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +190,8 @@
 		900E657E1C2BB8D5003D9A9E /* TZImagePickerController */ = {
 			isa = PBXGroup;
 			children = (
+				04F55B17207E47C400F3BAD0 /* VideoExample */,
+				04F55B16207E472300F3BAD0 /* VideoBtn */,
 				900EEFF51C2BBF7600EA709B /* TZImagePickerController */,
 				900E65821C2BB8D5003D9A9E /* AppDelegate.h */,
 				900E65831C2BB8D5003D9A9E /* AppDelegate.m */,
@@ -365,6 +389,7 @@
 				900E658F1C2BB8D5003D9A9E /* LaunchScreen.storyboard in Resources */,
 				6DC358661CC8BAFD00898D29 /* TZImagePickerController.bundle in Resources */,
 				900E658C1C2BB8D5003D9A9E /* Assets.xcassets in Resources */,
+				04F55B1C207E490800F3BAD0 /* video.mp4 in Resources */,
 				900E658A1C2BB8D5003D9A9E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,6 +428,7 @@
 				900E65871C2BB8D5003D9A9E /* ViewController.m in Sources */,
 				90CE84AE1C3A89EF003D0779 /* TZImageManager.m in Sources */,
 				900E65841C2BB8D5003D9A9E /* AppDelegate.m in Sources */,
+				04F55B1A207E47ED00F3BAD0 /* TZVideoExampleViewController.m in Sources */,
 				900E65811C2BB8D5003D9A9E /* main.m in Sources */,
 				900EF0121C2C107400EA709B /* TZPhotoPreviewController.m in Sources */,
 				6D5358CD1D64600F00928CC6 /* NSBundle+TZImagePicker.m in Sources */,
