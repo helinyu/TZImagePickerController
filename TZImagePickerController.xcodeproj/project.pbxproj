@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04643CF52080A01000347FFB /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 04643CF42080A01000347FFB /* video.mp4 */; };
+		04643CF82080A3D300347FFB /* YDPhotoDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04643CF72080A3D300347FFB /* YDPhotoDisplayViewController.m */; };
 		04F55B1A207E47ED00F3BAD0 /* TZVideoExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F55B19207E47ED00F3BAD0 /* TZVideoExampleViewController.m */; };
-		04F55B1C207E490800F3BAD0 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 04F55B1B207E490800F3BAD0 /* video.mp4 */; };
 		6D32B9BD1CD83640005CE1E0 /* LxGridViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D32B9BC1CD83640005CE1E0 /* LxGridViewFlowLayout.m */; };
 		6D4608311DFFC60D004FB009 /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4608301DFFC60D004FB009 /* TZGifPhotoPreviewController.m */; };
 		6D5358CD1D64600F00928CC6 /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5358CC1D64600F00928CC6 /* NSBundle+TZImagePicker.m */; };
@@ -56,9 +57,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04643CF42080A01000347FFB /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		04643CF62080A3D300347FFB /* YDPhotoDisplayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YDPhotoDisplayViewController.h; sourceTree = "<group>"; };
+		04643CF72080A3D300347FFB /* YDPhotoDisplayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YDPhotoDisplayViewController.m; sourceTree = "<group>"; };
 		04F55B18207E47ED00F3BAD0 /* TZVideoExampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TZVideoExampleViewController.h; sourceTree = "<group>"; };
 		04F55B19207E47ED00F3BAD0 /* TZVideoExampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TZVideoExampleViewController.m; sourceTree = "<group>"; };
-		04F55B1B207E490800F3BAD0 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		6D12FC191D66B71E00182C44 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		6D12FC1A1D66B71E00182C44 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		6D32B9BB1CD83640005CE1E0 /* LxGridViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LxGridViewFlowLayout.h; sourceTree = "<group>"; };
@@ -151,9 +154,11 @@
 		04F55B17207E47C400F3BAD0 /* VideoExample */ = {
 			isa = PBXGroup;
 			children = (
-				04F55B1B207E490800F3BAD0 /* video.mp4 */,
+				04643CF42080A01000347FFB /* video.mp4 */,
 				04F55B18207E47ED00F3BAD0 /* TZVideoExampleViewController.h */,
 				04F55B19207E47ED00F3BAD0 /* TZVideoExampleViewController.m */,
+				04643CF62080A3D300347FFB /* YDPhotoDisplayViewController.h */,
+				04643CF72080A3D300347FFB /* YDPhotoDisplayViewController.m */,
 			);
 			path = VideoExample;
 			sourceTree = "<group>";
@@ -389,7 +394,7 @@
 				900E658F1C2BB8D5003D9A9E /* LaunchScreen.storyboard in Resources */,
 				6DC358661CC8BAFD00898D29 /* TZImagePickerController.bundle in Resources */,
 				900E658C1C2BB8D5003D9A9E /* Assets.xcassets in Resources */,
-				04F55B1C207E490800F3BAD0 /* video.mp4 in Resources */,
+				04643CF52080A01000347FFB /* video.mp4 in Resources */,
 				900E658A1C2BB8D5003D9A9E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,6 +429,7 @@
 				6DD0502B1DF659ED0057C78D /* TZProgressView.m in Sources */,
 				6D32B9BD1CD83640005CE1E0 /* LxGridViewFlowLayout.m in Sources */,
 				6D4608311DFFC60D004FB009 /* TZGifPhotoPreviewController.m in Sources */,
+				04643CF82080A3D300347FFB /* YDPhotoDisplayViewController.m in Sources */,
 				900EF0161C2C134900EA709B /* TZPhotoPreviewCell.m in Sources */,
 				900E65871C2BB8D5003D9A9E /* ViewController.m in Sources */,
 				90CE84AE1C3A89EF003D0779 /* TZImageManager.m in Sources */,

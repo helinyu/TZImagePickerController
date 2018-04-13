@@ -9,13 +9,14 @@
 #import "TZVideoExampleViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
-
+#import <Photos/Photos.h>
+#import "TZImageManager.h"
+#import "YDPhotoDisplayViewController.h"
 
 @interface TZVideoExampleViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIButton *saveVideoBtn;
 @property (nonatomic, strong) UIButton *openAlbumBtn;
-
 
 @end
 
@@ -58,137 +59,34 @@
 
 - (void)onOpenAction:(UIButton *)sender {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;
-    
     UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-    
-    //视频最大时间
-    ipc.videoMaximumDuration = 30;
-    
-    ipc.view.backgroundColor = [UIColor whiteColor];
+    ipc.videoMaximumDuration = 0.1;
+    ipc.view.backgroundColor = [UIColor grayColor];
     ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     ipc.delegate = self;
-    //只打开视频
     ipc.mediaTypes = @[(NSString *)kUTTypeMovie];
-    
-    //视频上传质量
     ipc.videoQuality = UIImagePickerControllerQualityTypeHigh;
-    
     [self presentViewController:ipc animated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    NSLog(@"full iamge: %@",info);
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         NSURL *url = info[UIImagePickerControllerMediaURL];
-        NSDictionary *videoDic = [self getLocalVideoSizeAndTimeWithSourcePath:url.absoluteString];
-        int videoTime = [[videoDic valueForKey:@"duration"] intValue];
-        NSUInteger limitTime = 30;
-        
-        __weak typeof (self) weakSelf = self;
-        [self convertMovTypeIntoMp4TypeWithSourceUrl:url convertSuccess:^(NSURL *path) {
-                [picker dismissViewControllerAnimated:YES completion:nil];
-//                CZHChooseCoverController *chooseCover = [[CZHChooseCoverController alloc] init];
-//                chooseCover.videoPath = path;
-//                chooseCover.coverImageBlock = ^(UIImage *coverImage) {
-//                self.coverImageView.image = coverImage;
-//            };
-//            [self presentViewController:chooseCover animated:YES completion:nil];
-        }];
-    }
-}
-
-- (NSDictionary *)getLocalVideoSizeAndTimeWithSourcePath:(NSString *)path{
-    AVURLAsset * asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:path]];
-    CMTime   time = [asset duration];
-    int seconds = ceil(time.value/time.timescale);
-    
-    NSInteger fileSize = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil].fileSize;
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    dic[@"size"] = @(fileSize);
-    dic[@"duration"] = @(seconds);
-    return dic;
-}
-
-- (void)convertMovTypeIntoMp4TypeWithSourceUrl:(NSURL *)sourceUrl convertSuccess:(void (^)(NSURL *path))convertSuccess {
-    
-    [self createVideoFolderIfNotExist];
-    
-    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:sourceUrl options:nil];
-    
-    NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
-    
-    //    BWJLog(@"%@",compatiblePresets);
-    
-    if ([compatiblePresets containsObject:AVAssetExportPresetHighestQuality]) {
-        
-        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetHighestQuality];
-        
-        
-        NSString * resultPath = [self getVideoMergeFilePathString];
-        
-        NSLog(@"resultPath = %@",resultPath);
-        
-        
-        exportSession.outputURL = [NSURL fileURLWithPath:resultPath];
-        
-        exportSession.outputFileType = AVFileTypeMPEG4;
-        
-        exportSession.shouldOptimizeForNetworkUse = YES;
-        
-        [exportSession exportAsynchronouslyWithCompletionHandler:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (exportSession.status == AVAssetExportSessionStatusCompleted) {
-                    if (convertSuccess) {
-                        convertSuccess([NSURL fileURLWithPath:resultPath]);
-                    }
-                } else {
-                    
-                    
-                }
-            });
-            
-        }];
-    }
-}
-
-- (void)createVideoFolderIfNotExist
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [paths objectAtIndex:0];
-    
-    NSString *folderPath = [path stringByAppendingPathComponent:@"videoFolder"];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDir = NO;
-    BOOL isDirExist = [fileManager fileExistsAtPath:folderPath isDirectory:&isDir];
-    
-    if(!(isDirExist && isDir))
-    {
-        BOOL bCreateDir = [fileManager createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
-        if(!bCreateDir){
-            
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        if (@available(iOS 11.0, *)) {
+            PHAsset *asset = [info objectForKey:UIImagePickerControllerPHAsset];
+            TZAssetModel *currentItem = [TZAssetModel modelWithAsset:asset type:TZAssetModelMediaTypeVideo];
+            YDPhotoDisplayViewController *vc =[YDPhotoDisplayViewController new];
+            vc.currentAsset = currentItem;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            // Fallback on earlier versions
         }
+        
     }
 }
-
-- (NSString *)getVideoMergeFilePathString
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [paths objectAtIndex:0];
-    
-    path = [path stringByAppendingPathComponent:@"video_folder"];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyyMMddHHmmss";
-    NSString *nowTimeStr = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
-    
-    NSString *fileName = [[path stringByAppendingPathComponent:nowTimeStr] stringByAppendingString:@"merge.mp4"];
-    
-    return fileName;
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
