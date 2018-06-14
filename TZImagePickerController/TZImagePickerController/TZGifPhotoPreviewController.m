@@ -56,7 +56,8 @@
     _previewView.model = self.model;
     __weak typeof(self) weakSelf = self;
     [_previewView setSingleTapGestureBlock:^{
-        [weakSelf signleTapAction];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf signleTapAction];
     }];
     [self.view addSubview:_previewView];
 }
@@ -89,6 +90,10 @@
     [_toolBar addSubview:byteLabel];
     
     [self.view addSubview:_toolBar];
+    
+    if (tzImagePickerVc.gifPreviewPageUIConfigBlock) {
+        tzImagePickerVc.gifPreviewPageUIConfigBlock(_toolBar, _doneButton);
+    }
 }
 
 #pragma mark - Layout
@@ -98,8 +103,14 @@
     
     _previewView.frame = self.view.bounds;
     _previewView.scrollView.frame = self.view.bounds;
+    CGFloat toolBarHeight = [TZCommonTools tz_isIPhoneX] ? 44 + (83 - 49) : 44;
+    _toolBar.frame = CGRectMake(0, self.view.tz_height - toolBarHeight, self.view.tz_width, toolBarHeight);
     _doneButton.frame = CGRectMake(self.view.tz_width - 44 - 12, 0, 44, 44);
-    _toolBar.frame = CGRectMake(0, self.view.tz_height - 44, self.view.tz_width, 44);
+    
+    TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
+    if (tzImagePickerVc.gifPreviewPageDidLayoutSubviewsBlock) {
+        tzImagePickerVc.gifPreviewPageDidLayoutSubviewsBlock(_toolBar, _doneButton);
+    }
 }
 
 #pragma mark - Click Event
@@ -107,19 +118,25 @@
 - (void)signleTapAction {
     _toolBar.hidden = !_toolBar.isHidden;
     [self.navigationController setNavigationBarHidden:_toolBar.isHidden];
-    
-    if (!TZ_isGlobalHideStatusBar) {
-        if (iOS7Later) [UIApplication sharedApplication].statusBarHidden = _toolBar.isHidden;
+    TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
+    if (iOS7Later) {
+        if (_toolBar.isHidden) {
+            [UIApplication sharedApplication].statusBarHidden = YES;
+        } else if (tzImagePickerVc.needShowStatusBar) {
+            [UIApplication sharedApplication].statusBarHidden = NO;
+        }
     }
 }
 
 - (void)doneButtonClick {
-    TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
     if (self.navigationController) {
+        TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
         if (imagePickerVc.autoDismiss) {
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 [self callDelegateMethod];
             }];
+        } else {
+            [self callDelegateMethod];
         }
     } else {
         [self dismissViewControllerAnimated:YES completion:^{

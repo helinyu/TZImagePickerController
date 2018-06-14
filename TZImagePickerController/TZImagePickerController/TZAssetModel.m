@@ -25,48 +25,22 @@
     return model;
 }
 
-- (UIImage *)originImage {
-    __block UIImage *resultImage = nil;
-    if (!self.asset) {
-        return nil;
-    }
-    if ([self.asset isKindOfClass:[PHAsset class]]) {
-        PHImageRequestOptions *phImageRequestOptions = [[PHImageRequestOptions alloc] init];
-        phImageRequestOptions.synchronous = YES;
-        [[PHImageManager defaultManager] requestImageForAsset:self.asset
-                                                   targetSize:PHImageManagerMaximumSize
-                                                  contentMode:PHImageContentModeDefault
-                                                      options:phImageRequestOptions
-                                                resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                    resultImage = result;
-                                                }];
-        return resultImage;
-    }
-    else {
-        ALAsset *alAsset = (ALAsset *)self.asset;
-        ALAssetRepresentation *assetRep = [alAsset defaultRepresentation];
-        CGImageRef originalImageRef = [assetRep fullResolutionImage];
-        UIImage *originalImage = [UIImage imageWithCGImage:originalImageRef scale:1.0 orientation:UIImageOrientationUp];
-        return originalImage;
-    }
-}
-
 @end
 
 
 
 @implementation TZAlbumModel
 
-- (void)setResult:(id)result {
+- (void)setResult:(id)result needFetchAssets:(BOOL)needFetchAssets {
     _result = result;
-    BOOL allowPickingImage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tz_allowPickingImage"] isEqualToString:@"1"];
-    BOOL allowPickingVideo = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tz_allowPickingVideo"] isEqualToString:@"1"];
-    [[TZImageManager manager] getAssetsFromFetchResult:result allowPickingVideo:allowPickingVideo allowPickingImage:allowPickingImage completion:^(NSArray<TZAssetModel *> *models) {
-        _models = models;
-        if (_selectedModels) {
-            [self checkSelectedModels];
-        }
-    }];
+    if (needFetchAssets) {
+        [[TZImageManager manager] getAssetsFromFetchResult:result completion:^(NSArray<TZAssetModel *> *models) {
+            self->_models = models;
+            if (self->_selectedModels) {
+                [self checkSelectedModels];
+            }
+        }];
+    }
 }
 
 - (void)setSelectedModels:(NSArray *)selectedModels {
